@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "postinstall": "husky"
+    "prepare": "husky"
   },
   "lint-staged": {
     "*.{js,ts,jsx,tsx}": [
@@ -20,6 +20,8 @@
     ]
   },
   "dependencies": {
+    "eslint-config-Prettier": "npm:eslint-config-prettier@^9.1.0",
+    "eslint-config-standard": "^17.1.0",
     "eslint-plugin-tailwindcss": "^3.14.3",
     "next": "14.1.0",
     "react": "^18",
