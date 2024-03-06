@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .h1-bold {
+    @apply text-[32px] font-bold leading-[40px] text-white;
+  }
+  .h1-medium {
+    @apply text-[20px] font-medium leading-[28px]  text-white;
+  }
+  .h2-bold {
+    @apply text-[24px] font-bold leading-[32px]  text-white;
+  }
+  .h2-medium {
+    @apply text-[16px] font-medium leading-[24px]  text-white;
+  }
+  .p1-bold {
+    @apply text-[18px] font-bold leading-[28px]  text-white;
+  }
+  .p1-medium {
+    @apply text-[18px] font-medium leading-[28px]  text-white;
+  }
+  .p1-regular {
+    @apply text-[18px] font-normal leading-[28px]  text-white;
+  }
+  .p2-bold {
+    @apply text-[16px] font-bold leading-[24px]  text-white;
+  }
+  .p2-regular {
+    @apply text-[16px] font-normal leading-[24px]  text-white;
+  }
+  .p3-bold {
+    @apply text-[14px] font-bold leading-[20px]  text-white;
+  }
+  .p3-medium {
+    @apply text-[14px] font-medium leading-[20px]  text-white;
+  }
+  .p3-regular {
+    @apply text-[14px] font-regular leading-[20px]  text-white;
+  }
+  .p4-medium {
+    @apply text-[12px] font-medium leading[16px]  text-white;
+  }
+  .p4-medium {
+    @apply text-[12px] font-regular leading[16px]  text-white;
+  }
+}
