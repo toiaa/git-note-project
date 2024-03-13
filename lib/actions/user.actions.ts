@@ -8,29 +8,27 @@ const saltRounds = 10;
 const saltRoundsRandom = bcrypt.genSaltSync(saltRounds);
 
 export async function createUser(
-  fullName: string,
+  name: string,
   email: string,
   password: string,
 ) {
-  console.log("GOT VALUES in actions", email, password, fullName);
   try {
     await connectToDatabase();
     const encryptedPassword = await bcrypt.hash(password, saltRoundsRandom);
     const user = await User.create({
-      fullName,
+      name,
       email,
       password: encryptedPassword,
     });
-    return user;
+    const userData = JSON.parse(JSON.stringify(user));
+    return userData;
   } catch (err) {
-    console.log(`error creating user: ${err}`);
+    console.log(err);
     throw new Error("Error creating user");
   }
 }
 
 export async function findUserByEmail(email: string) {
-  console.log(email, "GOT email, password, in actions, find");
-
   try {
     await connectToDatabase();
     const user = await User.findOne({
@@ -38,7 +36,25 @@ export async function findUserByEmail(email: string) {
     });
     return user;
   } catch (err) {
-    console.log(`error finding user by email: ${err}`);
     throw new Error("Error finding user by email");
   }
+}
+
+export async function signInAction(
+  credentials: Record<"email" | "password", string> | undefined,
+) {
+  if (!credentials) throw new Error("Missing credentials");
+  const { email, password } = credentials;
+  if (!email || !password) throw new Error("Missing email or password");
+  const userFound = await findUserByEmail(email);
+  if (!userFound) {
+    return null;
+  }
+  const isAuthenticated = await bcrypt.compareSync(
+    password,
+    userFound.password,
+  );
+  if (!isAuthenticated) return null;
+  if (isAuthenticated) return userFound;
+  return userFound;
 }

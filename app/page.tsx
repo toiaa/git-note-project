@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="center-container-col size-full flex-col">
+    <main className="container-col size-full h-full flex-col">
       <Logo />
       <div className="flex flex-col items-center gap-2">
         <Link href="/login" className="w-full">

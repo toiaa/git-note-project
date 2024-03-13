@@ -45,8 +45,8 @@
   .p4-medium {
     @apply text-[12px] font-normal leading[16px]  text-white;
   }
-  .center-container-col {
-    @apply flex flex-col items-center justify-center min-h-screen w-full;
+  .container-col {
+    @apply flex flex-col items-center self-center justify-center min-h-full;
   }
   .input-form {
     @apply border-none bg-dark-900;
