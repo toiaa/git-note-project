@@ -54,4 +54,7 @@
   .label-form {
     @apply p3-medium text-light-300;
   }
+  .container-custom {
+    @apply w-full h-fit mx-auto;
+  }
 }
