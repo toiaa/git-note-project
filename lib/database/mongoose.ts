@@ -18,4 +18,3 @@ export const connectToDatabase = async () => {
     console.log(`Error with db connection: ${error}`);
   }
 };
-/*  */

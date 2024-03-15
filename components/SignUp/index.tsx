@@ -55,7 +55,7 @@ export function ProfileForm({
     }
   };
   return (
-    <div className="flex w-full flex-col justify-center gap-4">
+    <div className="flex w-[400px] flex-col justify-center gap-4">
       <h1 className="h2-bold">Create an account</h1>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">

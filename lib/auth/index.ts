@@ -4,7 +4,6 @@ import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { findUserByEmail, signInAction } from "@/lib/actions/user.actions";
 import User from "../database/user.models";
-import { SessionType } from "@/types/next-auth";
 
 if (!process.env.AUTH_SECRET) throw new Error("Please provide an auth secret");
 if (!process.env.GITHUB_ID) throw new Error("Please provide an auth secret");
@@ -25,7 +24,6 @@ export const authOptions: AuthOptions = {
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET,
     }),
-
     CredentialsProvider({
       name: "Credentials",
       credentials: {
@@ -37,22 +35,38 @@ export const authOptions: AuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        const authentication = await signInAction(credentials);
-        return authentication;
+        const user = await signInAction(credentials);
+        if (!user) return null;
+        return { ...user, id: user._id };
       },
     }),
   ],
   callbacks: {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    async session({ session }: { session: SessionType }) {
+    async jwt({ token }) {
+      if (token.id) return token;
+      const ourUser = await User.findOne({ email: token.email });
+      if (ourUser) {
+        token.id = ourUser.id;
+      }
+
+      return token;
+    },
+    async session({ session, token }) {
+      console.log(token);
       // define type here and in the functiom below
-      session.user.test = "test";
-      // save more data from user to session here
+      if (!session.user) return session;
+
+      const ourUser = await User.findById(token.id);
+
+      if (!ourUser) return session;
+      if (!ourUser?.picture) return session;
+      session.user.image = ourUser?.picture;
+      session.user.name = ourUser?.name;
+      session.user.email = ourUser?.email;
 
       return session;
     },
-    async signIn({ user, account, profile, email, credentials }: any) {
+    async signIn({ user, account, profile, email, credentials }) {
       // define type here
       console.log({
         user,
@@ -62,13 +76,19 @@ export const authOptions: AuthOptions = {
         credentials,
       }); // delete
       try {
-        if (account.provider === "github" || account.provider === "google") {
-          const { email, name } = profile;
+        if (account?.provider === "github" || account?.provider === "google") {
+          if (!profile) return false;
+
+          const { email, name, image } = profile;
+
+          if (!email) return false;
+
           const userFound = await findUserByEmail(email);
           if (!userFound) {
             const userCreated = await User.create({
               email,
               name,
+              image,
             });
             if (!userCreated) {
               return false;

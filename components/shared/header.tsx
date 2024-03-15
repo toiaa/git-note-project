@@ -3,7 +3,7 @@ import Logo from "./Logo";
 
 const Header = () => {
   return (
-    <div className="flex w-full items-center justify-center p-10">
+    <div className="flex w-full items-center justify-center p-5">
       <Logo />
     </div>
   );

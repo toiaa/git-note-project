@@ -18,6 +18,7 @@ export async function createUser(
     const user = await User.create({
       name,
       email,
+      picture: "",
       password: encryptedPassword,
     });
     const userData = JSON.parse(JSON.stringify(user));
@@ -33,7 +34,7 @@ export async function findUserByEmail(email: string) {
     await connectToDatabase();
     const user = await User.findOne({
       email,
-    });
+    }).lean();
     return user;
   } catch (err) {
     throw new Error("Error finding user by email");
@@ -47,9 +48,10 @@ export async function signInAction(
   const { email, password } = credentials;
   if (!email || !password) throw new Error("Missing email or password");
   const userFound = await findUserByEmail(email);
-  if (!userFound) {
+  if (!userFound || !userFound.password) {
     return null;
   }
+
   const isAuthenticated = await bcrypt.compareSync(
     password,
     userFound.password,

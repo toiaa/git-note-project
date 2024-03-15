@@ -8,11 +8,11 @@ const Page = async () => {
   const providers = await getProviders();
   if (!providers) return null;
   return (
-    <div className="grid grid-cols-3 grid-rows-4 justify-items-stretch gap-2 ">
-      <div className="col-span-3 col-start-1">
+    <div className="w-full">
+      <div className="">
         <Header />
       </div>
-      <div className="col-span-1 col-start-2 row-span-2 w-[400px] justify-self-center">
+      <div className="container-custom mt-4 flex items-center justify-center self-center pt-36 ">
         <LogIn providers={providers} />
       </div>
     </div>

@@ -36,11 +36,15 @@ const LogIn = ({ providers }: { providers: ProvidersInterface }) => {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    signIn("credentials", { email: values.email, password: values.password });
+    console.log("values", values);
+    signIn("credentials", {
+      email: values.email,
+      password: values.password,
+    });
   }
 
   return (
-    <div className="flex w-full flex-col justify-center gap-4">
+    <div className="flex w-[400px] flex-col justify-center gap-4">
       <h1 className="h2-bold">Log in</h1>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">

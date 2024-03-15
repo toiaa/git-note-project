@@ -3,7 +3,7 @@ import React from "react";
 import Logo from "../Logo";
 import { useSession } from "next-auth/react";
 
-const NavBar = () => {
+const MobileNav = () => {
   const session = useSession();
   console.log(session);
   return (
@@ -13,4 +13,4 @@ const NavBar = () => {
   );
 };
 
-export default NavBar;
+export default MobileNav;
