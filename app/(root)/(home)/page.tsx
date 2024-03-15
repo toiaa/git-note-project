@@ -12,6 +12,9 @@ export default function Home() {
         </Link>
         <Link href="/signup" className="w-full">
           <Button className="w-full bg-dark-700">Sign up </Button>
+        </Link>{" "}
+        <Link href="/onboarding" className="w-full">
+          <Button className="w-full bg-dark-700">On Boarding </Button>
         </Link>
       </div>
     </main>

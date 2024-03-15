@@ -8,7 +8,7 @@ const Logo = () => {
         alt="DevFlow logo"
         width={41}
         height={50}
-        src="/assets/icons/logo.svg"
+        src="/assets/logos/logo.svg"
       />
       <h1 className="h1-bold">GitNote</h1>
     </div>

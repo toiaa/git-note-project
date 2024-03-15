@@ -112,7 +112,7 @@ const LogIn = ({ providers }: { providers: ProvidersInterface }) => {
                 >
                   <Image
                     alt={`${provider.name} logo`}
-                    src={`/assets/icons/${provider.id}.svg`}
+                    src={`/assets/logos/${provider.id}.svg`}
                     width={20}
                     height={20}
                   />

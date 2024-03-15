@@ -14,7 +14,7 @@ const Account = () => {
         alt="user picture"
         width={15}
         height={15}
-        src="/assets/icons/logo.svg"
+        src="/assets/logos/logo.svg"
       />
       <div className="flex flex-col items-start justify-center">
         <p className="p3-regular capitalize">{name}</p>
