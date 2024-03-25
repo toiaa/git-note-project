@@ -36,7 +36,7 @@ const LogIn = ({ providers }: { providers: ProvidersInterface }) => {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log("values", values);
+    console.log("values submit login", values);
     signIn("credentials", {
       email: values.email,
       password: values.password,
@@ -86,8 +86,11 @@ const LogIn = ({ providers }: { providers: ProvidersInterface }) => {
               </FormItem>
             )}
           />
-          <Button className="w-full" type="submit">
-            Submit
+          <Button
+            className="p3-bold w-full bg-primary-500 text-dark-900 hover:bg-primary-500 hover:opacity-75"
+            type="submit"
+          >
+            Login
           </Button>
         </form>
       </Form>

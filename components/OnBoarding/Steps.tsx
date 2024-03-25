@@ -10,18 +10,12 @@ const Steps = ({ currentStep, numberOfSteps }: StepsProps) => {
     return currentStep >= index ? "bg-dark-600 p-2" : "bg-dark-800";
   };
   const isChecked = (index: number) => {
-    console.log({
-      currentStep,
-      index,
-      numberOfSteps,
-    });
-
     if (currentStep > index) return true;
     if (currentStep === numberOfSteps && currentStep === index) return false;
   };
   const isFinalStep = (index: number) => index === numberOfSteps - 1;
   return (
-    <div className="flex items-center p-6">
+    <div className="flex items-center">
       {Array.from({ length: numberOfSteps }).map((_, index) => (
         <Fragment key={index}>
           <div

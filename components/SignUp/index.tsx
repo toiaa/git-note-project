@@ -116,7 +116,10 @@ export function ProfileForm({
               </FormItem>
             )}
           />
-          <Button className="w-full bg-primary-500 text-dark-900" type="submit">
+          <Button
+            className="p3-bold w-full bg-primary-500 text-dark-900 hover:bg-primary-500 hover:opacity-75"
+            type="submit"
+          >
             {loading ? "loading" : "Create an account"}
           </Button>
         </form>
