@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
+import { redirect } from "next/navigation";
 
 const LogIn = ({ providers }: { providers: ProvidersInterface }) => {
   const formSchema = z.object({
@@ -36,11 +37,12 @@ const LogIn = ({ providers }: { providers: ProvidersInterface }) => {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log("values", values);
+    console.log("values submit login", values);
     signIn("credentials", {
       email: values.email,
       password: values.password,
     });
+    redirect("/onboarding");
   }
 
   return (
@@ -59,6 +61,7 @@ const LogIn = ({ providers }: { providers: ProvidersInterface }) => {
                 <FormControl>
                   <Input
                     className="border-none bg-dark-700"
+                    variant={"dark"}
                     placeholder="Email"
                     {...field}
                   />
@@ -86,8 +89,11 @@ const LogIn = ({ providers }: { providers: ProvidersInterface }) => {
               </FormItem>
             )}
           />
-          <Button className="w-full" type="submit">
-            Submit
+          <Button
+            className="p3-bold w-full bg-primary-500 text-dark-900 hover:bg-primary-500 hover:opacity-75"
+            type="submit"
+          >
+            Login
           </Button>
         </form>
       </Form>
@@ -112,7 +118,7 @@ const LogIn = ({ providers }: { providers: ProvidersInterface }) => {
                 >
                   <Image
                     alt={`${provider.name} logo`}
-                    src={`/assets/icons/${provider.id}.svg`}
+                    src={`@/public/assets/logos/${provider.id}.svg`}
                     width={20}
                     height={20}
                   />

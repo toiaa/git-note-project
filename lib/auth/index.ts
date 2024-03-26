@@ -48,41 +48,25 @@ export const authOptions: AuthOptions = {
       if (ourUser) {
         token.id = ourUser.id;
       }
-
       return token;
     },
     async session({ session, token }) {
-      console.log(token);
-      // define type here and in the functiom below
       if (!session.user) return session;
-
       const ourUser = await User.findById(token.id);
-
       if (!ourUser) return session;
-      if (!ourUser?.picture) return session;
+      session.user.id = ourUser._id.toString();
       session.user.image = ourUser?.picture;
       session.user.name = ourUser?.name;
       session.user.email = ourUser?.email;
-
+      session.user.onboardingCompleted = ourUser?.onboardingCompleted;
       return session;
     },
-    async signIn({ user, account, profile, email, credentials }) {
-      // define type here
-      console.log({
-        user,
-        account,
-        profile,
-        email,
-        credentials,
-      }); // delete
+    async signIn({ account, profile }) {
       try {
         if (account?.provider === "github" || account?.provider === "google") {
           if (!profile) return false;
-
           const { email, name, image } = profile;
-
           if (!email) return false;
-
           const userFound = await findUserByEmail(email);
           if (!userFound) {
             const userCreated = await User.create({
@@ -107,6 +91,7 @@ export const authOptions: AuthOptions = {
   pages: {
     signIn: "/login",
   },
+  session: { strategy: "jwt" },
 };
 
 export default NextAuth(authOptions);

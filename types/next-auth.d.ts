@@ -5,10 +5,11 @@ declare module "next-auth" {
    */
   interface Session {
     user: {
-      test: string;
+      id: string;
       email: string;
       name: string;
-      image: string;
+      image?: string;
+      onboardingCompleted?: boolean;
     } & DefaultSession["user"];
   }
 }
