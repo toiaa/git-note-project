@@ -1,6 +1,6 @@
 const CloudUploadIcon: React.FC<IconProps> = ({
-  width = 10,
-  height = 10,
+  width = 20,
+  height = 20,
   color = "#ADB3CC",
 }: IconProps) => {
   return (

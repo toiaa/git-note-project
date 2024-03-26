@@ -1,8 +1,10 @@
 "use server";
 import User from "../database/user.models";
 import bcrypt from "bcrypt";
-
 import { connectToDatabase } from "../database/mongoose";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../auth";
+import { Error } from "mongoose";
 
 const saltRounds = 10;
 const saltRoundsRandom = bcrypt.genSaltSync(saltRounds);
@@ -51,7 +53,6 @@ export async function signInAction(
   if (!userFound || !userFound.password) {
     return null;
   }
-
   const isAuthenticated = await bcrypt.compareSync(
     password,
     userFound.password,
@@ -59,4 +60,39 @@ export async function signInAction(
   if (!isAuthenticated) return null;
   if (isAuthenticated) return userFound;
   return userFound;
+}
+
+export async function userUpdate(values: any, imgUrl: string | any) {
+  try {
+    await connectToDatabase();
+    const session = await getServerSession(authOptions);
+    console.log("session", session?.user.id);
+    if (!session?.user.id) throw new Error("You are not logged in!");
+    const id = session?.user.id;
+    console.log("URL from new next-cloudinary", imgUrl);
+    const { name, portfolio, goals, levels, stack, available, start, end } =
+      values;
+    console.log(id);
+    const user = await User.findOneAndUpdate(
+      { id },
+      {
+        name,
+        picture: imgUrl,
+        portfolio,
+        goals,
+        levels,
+        stack,
+        available,
+        start,
+        end,
+        onboardingCompleted: true,
+      },
+      { new: true },
+    ).lean();
+    console.log("user returned from mongo db", user);
+    return JSON.parse(JSON.stringify(user));
+  } catch (err) {
+    console.log(err);
+    throw new Error("Error updating user");
+  }
 }

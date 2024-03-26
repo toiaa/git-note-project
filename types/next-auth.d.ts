@@ -9,6 +9,7 @@ declare module "next-auth" {
       email: string;
       name: string;
       image?: string;
+      onboardingCompleted?: boolean;
     } & DefaultSession["user"];
   }
 }

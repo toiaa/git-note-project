@@ -1,7 +1,8 @@
 import { Goal } from "lucide-react";
 import mongoose, { Model, Schema, model, Document } from "mongoose";
 
-type Goal = { checked: boolean; value: string };
+type Goal = { checked: boolean; text: string };
+type Level = { checked: boolean; text: string };
 
 export interface IUser extends Document {
   name: string;
@@ -10,7 +11,7 @@ export interface IUser extends Document {
   password?: string;
   picture?: string;
   goals?: Goal[];
-  levels?: string[];
+  levels?: Level[];
   stack?: string[];
   available?: boolean;
   start?: Date;

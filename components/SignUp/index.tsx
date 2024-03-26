@@ -17,6 +17,7 @@ import { ClientSafeProvider, signIn } from "next-auth/react";
 import Link from "next/link";
 import { useState } from "react";
 import Image from "next/image";
+import { User } from "next-auth";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -31,7 +32,7 @@ export function ProfileForm({
   createUser,
   providers,
 }: {
-  createUser: (name: string, email: string, password: string) => void;
+  createUser: (name: string, email: string, password: string) => Promise<User>;
   providers: ProvidersInterface;
 }) {
   const [loading, setLoading] = useState(false);
@@ -50,7 +51,6 @@ export function ProfileForm({
       await createUser(name, email, password);
       setLoading(false);
     } catch (error) {
-      console.error("SERA ACAAAA??", error);
       throw new Error("Failed to create user");
     }
   };
@@ -144,7 +144,7 @@ export function ProfileForm({
               >
                 <Image
                   alt={`${provider.name} logo`}
-                  src={`/assets/logos/${provider.id}.svg`}
+                  src={`@/public/assets/logos/${provider.id}.svg`}
                   width={20}
                   height={20}
                 />

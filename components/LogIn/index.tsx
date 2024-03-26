@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
+import { redirect } from "next/navigation";
 
 const LogIn = ({ providers }: { providers: ProvidersInterface }) => {
   const formSchema = z.object({
@@ -41,6 +42,7 @@ const LogIn = ({ providers }: { providers: ProvidersInterface }) => {
       email: values.email,
       password: values.password,
     });
+    redirect("/onboarding");
   }
 
   return (
@@ -115,7 +117,7 @@ const LogIn = ({ providers }: { providers: ProvidersInterface }) => {
                 >
                   <Image
                     alt={`${provider.name} logo`}
-                    src={`/assets/logos/${provider.id}.svg`}
+                    src={`@/public/assets/logos/${provider.id}.svg`}
                     width={20}
                     height={20}
                   />

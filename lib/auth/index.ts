@@ -43,7 +43,6 @@ export const authOptions: AuthOptions = {
   ],
   callbacks: {
     async jwt({ token }) {
-      console.log("RUNNING", token);
       if (token.id) return token;
       const ourUser = await User.findOne({ email: token.email });
       if (ourUser) {
@@ -52,18 +51,14 @@ export const authOptions: AuthOptions = {
       return token;
     },
     async session({ session, token }) {
-      console.log("RUNNING SESSION");
-      // define type here and in the functiom below
       if (!session.user) return session;
       const ourUser = await User.findById(token.id);
-      console.log("FOUND USER", ourUser);
       if (!ourUser) return session;
-      // if (!ourUser?.picture) return session
       session.user.id = ourUser._id.toString();
       session.user.image = ourUser?.picture;
       session.user.name = ourUser?.name;
       session.user.email = ourUser?.email;
-
+      session.user.onboardingCompleted = ourUser?.onboardingCompleted;
       return session;
     },
     async signIn({ account, profile }) {
@@ -96,6 +91,7 @@ export const authOptions: AuthOptions = {
   pages: {
     signIn: "/login",
   },
+  session: { strategy: "jwt" },
 };
 
 export default NextAuth(authOptions);
