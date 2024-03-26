@@ -7,7 +7,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         <div className="">
           <Header />
         </div>
-        <div className="container-custom mt-4 flex items-center justify-center self-center pt-36 ">
+        <div className="container-custom mt-4 flex items-center justify-center self-center pt-20 ">
           {children}
         </div>
       </div>

@@ -61,6 +61,7 @@ const LogIn = ({ providers }: { providers: ProvidersInterface }) => {
                 <FormControl>
                   <Input
                     className="border-none bg-dark-700"
+                    variant={"dark"}
                     placeholder="Email"
                     {...field}
                   />

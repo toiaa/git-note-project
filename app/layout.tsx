@@ -11,7 +11,9 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} relative bg-dark-900 text-white`}>
+      <body
+        className={`${inter.className} container relative bg-dark-900 text-white`}
+      >
         <NextAuthProvider>
           <ThemeProvider attribute="class" defaultTheme="system">
             {children}
